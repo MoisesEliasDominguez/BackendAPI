@@ -61,14 +61,20 @@ const postPlaces = (req, res, next)=>{
 
 const updatePlaces = (req, res, next) => {
     const {title} = req.body;
-    const placesid = req.params.id;
+    const placesid = req.params.pid;
 
-    const updatePlace = DUMMY_PLACES.find(p => {
-        return p.id === placesid;
-    });
+    const updatePlace = {...DUMMY_PLACES.find(p =>  p.id === placesid)};
+    const placeIndex = DUMMY_PLACES.findIndex(p => p.id === placeId);
+
+    updatePlace.title = title;
+
+    DUMMY_PLACES[placeIndex] = updatePlace;
+
+    res.status(200).json({place: updatePlace});
 };
 
 exports.getAllPlaces = getAllPlaces;
 exports.getPlacesByid = getPlacesByid;
 exports.getPlacesByUsers = getPlacesByUsers;
 exports.postPlaces = postPlaces; 
+exports.updatePlaces = updatePlaces;
