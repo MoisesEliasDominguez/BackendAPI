@@ -1,5 +1,5 @@
-
-const DUMMY_PLACES = [
+// const
+let DUMMY_PLACES = [
     {
         id: 'p1',
         title: 'Rotonda',
@@ -44,8 +44,8 @@ const getPlacesByUsers = (req, res, next)=>{
 
     res.json(places);
 };
-
-const postPlaces = (req, res, next)=>{
+//postPlaces
+const savePlaces = (req, res, next)=>{
     const {title, creator} = req.body;
     const createdPlace = {
         id: uuid.v4(),
@@ -73,8 +73,18 @@ const updatePlaces = (req, res, next) => {
     res.status(200).json({place: updatePlace});
 };
 
+// Lo nuevo
+const deletePlace = (req, res, next) => {
+    const placeId = req.params.pid;
+    DUMMY_PLACES = DUMMY_PLACES.filter(p => p.id !== placeId)
+    res.status(200).json({message: 'Lugar Borrado'});
+};
+
 exports.getAllPlaces = getAllPlaces;
 exports.getPlacesByid = getPlacesByid;
 exports.getPlacesByUsers = getPlacesByUsers;
-exports.postPlaces = postPlaces; 
+// Lo nuevo
+exports.savePlaces = savePlaces; 
 exports.updatePlaces = updatePlaces;
+// Lo nuevo
+exports.deletePlace = deletePlace;
